@@ -113,7 +113,118 @@ const deleteEvent = AsyncHandler(async(req, res) => {
     )
 })
 
+const listEvents = AsyncHandler(async(req, res) => {
+    const events = await Event.find({}).limit(5)
+    if (!events) {
+        throw new ApiError(400, "No events found")
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            events,
+            "Events listed successfully"
+        )
+    )
+})
+
+const getEvent = AsyncHandler(async(req, res) => {
+   const {event} = req.params
+   if (!event) {
+      throw new ApiError(400, "Event id is required")
+   }
+
+   const data = await Event.findById(event)
+   if (!data) {
+      throw new ApiError(404, "Event not found")
+   }
+
+   return res
+   .status(200)
+   .json(
+        new ApiResponse(
+            200,
+            data,
+            "Event fetched successfully"
+        )
+   )
+})
+
+const updateEventName = AsyncHandler(async(req, res) => {
+    const { event } = req.params
+
+    if (!event) {
+        throw new ApiError(400, "Event id is required")
+    }
+
+    const data = await Event.findById(event)
+    if (!data) {
+        throw new ApiError(404, "Event not found")
+    }
+
+    const { eventName } = req.body
+    if (!eventName) {
+        throw new ApiError(400, "Event name is required")
+    }
+    if (req.user._id.toString() !== data.eventOrganizer.toString()) {
+        throw new ApiError(403, "You are not authorized to update this event")
+    }
+
+    data.eventName = eventName ? eventName.trim() : data.eventName
+    await data.save({ validateBeforeSave: false })
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            data,
+            "Event name updated successfully"
+        )
+    )
+})
+
+const updateEventDescription = AsyncHandler(async(req, res) => {
+    const { event } = req.params
+
+    if (!event) {
+        throw new ApiError(400, "Event id is required")
+    }
+
+    const data = await Event.findById(event)
+    if (!data) {
+        throw new ApiError(404, "Event not found")
+    }
+
+    const { eventDescription } = req.body
+    if (!eventDescription) {
+        throw new ApiError(400, "Event description is required")
+    }
+    if (req.user._id.toString() !== data.eventOrganizer.toString()) {
+        throw new ApiError(403, "You are not authorized to update this event")
+    }
+
+    data.eventDescription = eventDescription ? eventDescription.trim() : data.eventDescription
+    await data.save({ validateBeforeSave: false })
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            data,
+            "Event name updated successfully"
+        )
+    )
+})
+
 export {
     registerEvent,
-    deleteEvent
+    deleteEvent,
+    listEvents,
+    getEvent,
+    updateEventName,
+    updateEventDescription
 }
