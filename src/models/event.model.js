@@ -29,6 +29,11 @@ const eventSchema = new Schema({
         type: String,
         required: true
     },
+    eventOrganizer: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
     capacity: {
         type: Number,
         required: true
