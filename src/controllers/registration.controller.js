@@ -14,6 +14,14 @@ const registerForEvent = AsyncHandler(async(req, res) => {
         throw new ApiError(404, "Event not found || Id is not valid")
     }
 
+    const isAlreadyRegistered = await Registration.findOne({
+        $and: [ { eventId: eventData._id }, { userId: req.user._id } ]
+    })
+
+    if (isAlreadyRegistered) {
+        throw new ApiError(400, "User already registered for this event")
+    }
+
     const { slots } = req.body
     if (!slots) {
         throw new ApiError(400, "Number of slots is not provided")
