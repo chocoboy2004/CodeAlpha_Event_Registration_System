@@ -145,8 +145,144 @@ const logout = AsyncHandler(async(req, res) => {
     )
 })
 
+const updateName = AsyncHandler(async(req, res) => {
+    const { firstname, lastname } = req.body
+    if (!firstname && !lastname) {
+        throw new ApiError(400, "Firstname or Lastname is required")
+    }
+
+    if (firstname && firstname.trim() === "") {
+        throw new ApiError(400, "Firstname must not be empty")
+    }
+    if (lastname && lastname.trim() === "") {
+        throw new ApiError(400, "Lastname must not be empty")
+    }
+
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                firstname: firstname ? firstname.trim() : req.user.firstname,
+                lastname: lastname ? lastname.trim() : req.user.lastname
+            }
+        },
+        {
+            new: true
+        }
+    )
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            {},
+            "User name updated successfully"
+        )
+    )
+})
+
+const updateEmail = AsyncHandler(async(req, res) => {
+    const {email} = req.body
+    if (!email) {
+        throw new ApiError(400, "Email is required")
+    }
+    if (/^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/.test(email) === null) {
+        throw new ApiError(400, "Invalid email format")
+    }
+    if (email.trim() === req.user.email) {
+        throw new ApiError(400, "Email already in use! Please enter a new email")
+    }
+
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                email: email.trim().toLowerCase()
+            }
+        },
+        {
+            new: true
+        }
+    )
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200, 
+            {},
+            "User email updated successfully"
+        )
+    )
+})
+
+const updatePhone = AsyncHandler(async(req, res) => {
+    const {phone} = req.body
+    if (!phone) {
+        throw new ApiError(400, "Phone no is required")
+    }
+    if (phone.toString().trim().length < 10) {
+        throw new ApiError(400, "Invalid Phone number")
+    }
+    if (phone.toString() === req.user.phone) {
+        throw new ApiError(400, "Phone number already in use! Please enter a new phone number")
+    }
+
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                phone: phone.toString().trim()
+            }
+        },
+        {
+            new: true
+        }
+    )
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200, 
+            {},
+            "User phone no updated successfully"
+        )
+    )
+})
+
+const updatePassword = AsyncHandler(async(req, res) => {
+    const {password} = req.body
+    if (!password) {
+        throw new ApiError(400, "Password is required")
+    }
+
+    if (password.trim().length < 8) {
+        throw new ApiError(400, "Password must be at least 8 characters long")
+    }
+
+    const userData = await User.findById(req.user._id).select("-refreshToken")
+    userData.password = password.trim()
+    await userData.save({ validateBeforeSave: false })
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            {},
+            "User password updated successfully"
+        )
+    )
+})
+
 export {
     signup,
     login,
-    logout
+    logout,
+    updateName,
+    updateEmail,
+    updatePhone,
+    updatePassword
 }
