@@ -15,10 +15,12 @@ app.use(express.urlencoded({ extended: true }))
 
 import userRoute from "./routes/user.route.js"
 import eventRoute from "./routes/event.route.js"
+import registrationRoute from "./routes/registration.route.js"
 
 
 app.use("/api/v1/user", userRoute)
 app.use("/api/v1/event", eventRoute)
+app.use("/api/v1/registration", registrationRoute)
 
 
 
