@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "ef4ad6db-49e8-46f3-986a-b5c62af909e1",
+		"name": "CodeAlpha_Event_Registration_System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32984193"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"{{$randomFirstName}}\",\r\n    \"lastname\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"phone\": \"{{$randomPhoneNumber}}\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/user/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jena_damore61@yahoo.com\",\r\n    \"password\": \"24054544\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Out",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:3000/api/v1/user/logout"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Name",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"{{$randomFirstName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/user/update/name"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Email",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/user/update/email"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Phone",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"{{$randomPhoneNumber}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/user/update/phone"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"24054544\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/user/update/password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventName\": \"KING - Monopoly Moves Album India Tour | Kolkata\",\r\n    \"eventDescription\": \"KING is performing live in Kolkata!Prepare to witness the rise of a global superstar as KING embarks on his 'Monopoly Moves' Album launch tour across India and continues his unstoppable ascent worldwide. The New Delhi-based superstar returns to his hip-hop roots with his new album featuring collaborations with top Indian hip-hop artists such as Raftaar, Seedhe Maut, MC Stan, Raga, Karma, Sikander Kahlon, Abhijay Sharma and many more. This album reinforces his versatility and solidifies his global presence.With a brand new live show experience lined up for his fans, KING will be performing his album live with a host of surprise guests. His upcoming India-wide tour promises to be one for the books.These series of one-of-a-kind experiences are curated with love by Bluprint, Paytm Insider and WMS Entertainment.\",\r\n    \"eventVenue\": \"Westside PavillionSalt Lake Bypass, Next to Nicco Park Bidhannagar, HM Block, Sector IV, Meel, Kolkata, West Bengal 700106, India\",\r\n    \"startingDate\": \"24/08/2024\",\r\n    \"startingTime\": \"19:00\",\r\n    \"endingDate\": \"24/08/2024\",\r\n    \"endingTime\": \"00:00\",\r\n    \"capacity\": 600,\r\n    \"registrationFee\": 1499\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/event/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/api/v1/event/delete/66ae00e4c1e26acee327973a"
+					},
+					"response": []
+				},
+				{
+					"name": "List Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/v1/event/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/v1/event/get-event/66adf2f2c1ba900064c3cd04"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event Name",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventName\": \"HackToWin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/event/update/event/name/66adf2f2c1ba900064c3cd04"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event Description",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventDescription\": \"In this event, you can create valuable things using the technologies of AI/ML, Web Development, Crypto, etc.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/event/update/event/description/66adf2f2c1ba900064c3cd04"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event Registration",
+			"item": [
+				{
+					"name": "Register for Event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"slots\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/v1/registration/register/id=66ae010cc1e26acee3279742"
+					},
+					"response": []
+				},
+				{
+					"name": "Completing Payment",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": "http://localhost:3000/api/v1/registration/payment/id=66afb9a6915950585707eca1"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Registration",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/api/v1/registration/cancel-registration/id=66afb9c4915950585707ecae"
+					},
+					"response": []
+				},
+				{
+					"name": "List Registrations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/v1/registration/list"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
